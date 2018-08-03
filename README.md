@@ -28,24 +28,24 @@
     var i2cbus = '0';を'1'にする。
 
 ## <赤外線センサー 準備>
-lircをインストール
-$ sudo apt-get install lirc
+    lircをインストール
+    $ sudo apt-get install lirc
 
-$ sudo vim /etc/lirc/hardware.conf
-LIRCD_ARGS="--uinput"
-DRIVER="default"
-DEVICE="/dev/lirc0"
-MODULES="lirc_rpi"
+    $ sudo vim /etc/lirc/hardware.conf
+    LIRCD_ARGS="--uinput"
+    DRIVER="default"
+    DEVICE="/dev/lirc0"
+    MODULES="lirc_rpi"
 
-$ sudo vim /etc/modules
-lirc_dev
-を追加
+    $ sudo vim /etc/modules
+    lirc_dev
+    を追加
 
-$ sudo vim /boot/config.txt
-dtoverlay=lirc-rpiのコメントアウトを解除、
-下記のように修正する。
-dtoverlay=lirc-rpi,gpio_out_pin=17,gpio_in_pin=18
-※GPIO-17が赤外線送信、18が赤外線受信
+    $ sudo vim /boot/config.txt
+    dtoverlay=lirc-rpiのコメントアウトを解除、
+    下記のように修正する。
+    dtoverlay=lirc-rpi,gpio_out_pin=17,gpio_in_pin=18
+    ※GPIO-17が赤外線送信、18が赤外線受信
 
 ## <赤外線センサー 受信>
     sudo modprobe lirc-rpi gpio_in_pin=18 ※不要かも
