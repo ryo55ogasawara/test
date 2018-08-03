@@ -22,7 +22,7 @@
 
   vim ~/node_modules/rasp2c/lib/rasp2c.js
   ->以下を編集する。
-  var i2cbus = '1';を'0'にする。
+  var i2cbus = '0';を'1'にする。
 
 <赤外線センサー 準備>
 lircをインストール
@@ -45,13 +45,31 @@ dtoverlay=lirc-rpi,gpio_out_pin=17,gpio_in_pin=18
 ※GPIO-17が赤外線送信、18が赤外線受信
 
 <赤外線センサー 受信>
-  573  sudo modprobe lirc-rpi gpio_in_pin=18
-  575  mode2 -d /dev/lirc0
+  sudo modprobe lirc-rpi gpio_in_pin=18 ※不要かも
+  sudo /etc/init.d/lirc stop
+  mode2 -d /dev/lirc0
   irrecord -n -d /dev/lirc0 light
   -> lightの内容で/etc/lirc/lircd.confを上書き
 
 <赤外線センサー 送信>
+  sudo /etc/init.d/lirc start
   irsend LIST "" "" -> 設定が読み込まれているか確認
   irsend LIST light "" -> 設定が読み込まれているか確認
   irsend SEND_ONCE light on -> ON制御(名前はLISTで確認)
+
+
+
+<git はじめ>
+git init
+git config --global user.email "*********"
+git config --global user.name "*********"
+git add README.txt
+git commit -m "***"
+git remote add orgin https://github.com/ryo55ogasawara/test.git
+git push orgin master
+
+<git>
+git add ***
+git commit -m "***"
+git push https://github.com/ryo55ogasawara/test.git master:master
 
